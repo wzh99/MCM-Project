@@ -1,3 +1,4 @@
+# rt.py
 from mtr import Metropolis
 from pop import Population
 from traf import Traffic
@@ -46,15 +47,18 @@ def route():
         stations = statVals.tolist().copy()
         count = 0
         while True:
-            for rt in routes:
+            for i in range(len(routes)):
+                rt = routes[i]
                 # Search nearby stations of last station
                 lastStat = rt[-1]
                 candList = sorted(stations, key=lambda pos: manDist(pos, lastStat))
 
                 # Select a station and append it to route
                 nSelThis = min(nSelect, len(candList))
-                # choice: 0, 1, 2, ... (nSelThis-1)
-                idx = int(nSelThis * samples[count]) 
+                # choice: 0, 1, 2, ... (nSelThis-1), None
+                idx = (int(len(candList) * samples[count]) + i << 3) % (nSelThis + 1)
+                if idx == nSelThis:
+                    continue # don't extend route, try next time
                 select = candList[idx]
                 rt.append(select)
                 stations.remove(select) # this station will never be considered again
