@@ -49,7 +49,7 @@ class Metropolis:
 
                 # Record if best solution so far is found
                 curVal = func(curSample)
-                if curVal < bestVal:
+                if curVal > bestVal:
                     prevVal = bestVal = curVal
                     prevSample = bestSample = curSample
                     print("Best:", bestVal)
@@ -57,7 +57,7 @@ class Metropolis:
 
                 # Accept samples or not
                 dE = curVal - prevVal
-                if dE < 0 or (dE > 0 and rd.rand() < np.exp(-dE / curT)):
+                if dE > 0 or (dE < 0 and rd.rand() < np.exp(dE / curT)):
                     prevVal = curVal
                     prevSample = curSample
                     print("Accepted: ", curVal)

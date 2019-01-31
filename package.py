@@ -1,43 +1,21 @@
 # package.py
 
 import judge as jd
-import copy as cp
+import info
+
 import numpy as np
 import numpy.random as rd
 import functools as fc
+import copy as cp
 
-class Placeable:
-    def __init__(self, size):
-        self.size = size
-        self.volume = self.size[0] * self.size[1] * self.size[2]
+MEDICALS = info.MEDICALS
 
-class Bay(Placeable):
-    def __init__(self, size):
-        Placeable.__init__(self, size)
+BAY_1 = info.BAY_1
+BAY_2 = info.BAY_2
 
-BAY_1 = Bay([8, 10, 14])
-BAY_2 = Bay([24, 20, 20])
+DRONES = info.DRONES
 
-class Drone(Placeable):
-    def __init__(self, size, payload, speed, time, video, bay):
-        Placeable.__init__(self, size)
-        self.payload = payload
-        self.speed = speed
-        self.time = time
-        self.video = video
-        self.bay = bay
-
-DRONES = [
-    # Drone([45, 45, 25], 3.5, 40, 35, True, BAY_1), # A
-    Drone([30, 30, 22], 8, 79, 40, True, BAY_1), # B
-    Drone([60, 50, 30], 14, 64, 35, True, BAY_2), # C
-    Drone([25, 20, 25], 11, 60, 18, True, BAY_1), # D
-    Drone([25, 20, 27], 15, 60, 15, True, BAY_2), # E
-    Drone([40, 40, 25], 22, 79, 24, False, BAY_2), # F
-    Drone([32, 32, 17], 20, 64, 16, True, BAY_2) # G
-]
-
-NUM_DRONES_PER_CONTAINER = 36
+NUM_DRONES_PER_CONTAINER = info.NUM_DRONES_PER_CONTAINER
 
 def packageContainer():
     # Define function that map samples to container layout
